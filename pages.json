@@ -53,8 +53,10 @@
                     "path" : "goods_list/goods_list",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
+                    // "navigationBarTitleText": "",
+                    "enablePullDownRefresh": true,
+					"onReachBottomDistance": 150,
+					"backgroundColor": "#f8f8f8"
                 }
                 
                 }
@@ -62,7 +64,7 @@
                     "path" : "search/search",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "",
+                    // "navigationBarTitleText": "",
                     "enablePullDownRefresh": false
                 }
                 
