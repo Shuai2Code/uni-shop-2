@@ -131,9 +131,15 @@
 			},
 			_onBlur(event) {
 				this.$emit('blur', event)
-				let value = event.detail.value;
+				// 没有数值转换，用户输入的value可能是非法字符
+				// let value = event.detail.value;
+				
+				// 将用户输入的内容转化为整数
+				let value = parseInt(event.detail.value)
+				
+				
 				if (isNaN(value)) {
-					this.inputValue = this.min;
+					this.inputValue = 1;
 					return;
 				}
 				value = +value;

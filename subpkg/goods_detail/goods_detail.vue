@@ -42,7 +42,40 @@
 </template>
 
 <script>
+	// 从vuex中按需导入mapstate方法
+	import {mapState} from 'vuex'
+	
+	// 按需导入mapMutations方法
+	import {mapMutations} from 'vuex'
+	
+	// 按需导入mapGetters方法
+	import {mapGetters} from 'vuex'
+	
 	export default {
+		computed:{
+			// 调用mapstate方法，把m_cart模块中的cart数据映射到当前页面中，作为计算属性
+			// ...mapState('模块名称'，['要映射的数据名称1'，'要映射的数据名称2'])
+			...mapState('m_cart',[]),
+			// ...mapMutations('m_cart',['addToCart']),
+			...mapGetters('m_cart',['total'])
+		},
+		watch:{
+			// 监听total 的数据变化，通过第一个形参得到变化的值
+			
+			total:{
+				handler(newVal){
+					const findResult=this.options.find((x)=>x.text==='购物车')
+					
+					if(findResult){
+						// 动态为购物车的按钮info属性赋值
+						findResult.info=newVal
+					}
+				},
+				// 首次加载的时候就立即被调用
+				immediate:true
+			}
+		},
+		
 		data() {
 			return {
 				// 商品详情对象
@@ -69,6 +102,7 @@
 				]
 			};
 		},
+		
 		onLoad(options) {
 			// 获取传过来的商品Id
 			const goods_id=options.goods_id
@@ -105,7 +139,27 @@
 					// 所有图片URL地址的数据
 					urls:this.goods_info.pics.map(x=>x.pics_big)
 				})
-			}
+			},
+			// 加入购物车处理函数
+			buttonClick(e){
+				if(e.content.text==='加入购物车'){
+					
+					// 组织一个商品的信息对象
+					const goods={
+						goods_id:this.goods_info.goods_id,
+						goods_name:this.goods_info.goods_name,
+						goods_price:this.goods_info.goods_price,
+						goods_count:1,
+						goods_small_logo:this.goods_info.goods_small_logo,
+						goods_state:true
+						
+					}
+					this.addToCart(goods)
+				}
+			},
+			
+			// 把m_cart 模块中的addToCart方法
+			...mapMutations('m_cart',['addToCart'])
 			
 		}
 	}
