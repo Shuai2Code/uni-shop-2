@@ -3,7 +3,7 @@
 		
 		<!-- 收货地址组件 -->
 		<my-address></my-address>
-		
+	
 		<!-- 购物车的商品标题区域 -->
 		<view class="cart-title">
 			<!-- 左侧的图标 -->
